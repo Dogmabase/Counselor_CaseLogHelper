@@ -1,0 +1,51 @@
+﻿@model CaseLogger3.Models.Employee
+
+
+@{
+    ViewBag.Title = "AfterLogin";
+    
+    int intEmpDB_ID = 0;
+    if (Session["LogEmpDbID"] != null)
+    {
+        string EmpDB_ID = (string)(Session["LogEmpDbID"]);
+        //string passEmpDB_ID = Html.Hidden("LogEmpDbID", Session["LogEmpDbID"]).ToString(); 
+        //Cool! converts object to string: "<input id=\"LogEmpDbID\" name=\"LogEmpDbID\" type=\"hidden\" value=\"4\" />"
+        intEmpDB_ID = Convert.ToInt32(EmpDB_ID);
+    }
+}
+
+<h2>AfterLogin</h2>
+
+@if (ViewData["Msg"] != null) 
+{
+    //does not actually display a message?
+    <div style="border:1px solid green">
+        @ViewData["Msg"] 
+        @ViewBag.Msg
+    </div>
+}
+<br /><br /><br />
+
+@*My css needs some work... I hate defining all this here instead of just using a class="my class here" Advice?*@
+<table style="background-color:lightgray;border:1px solid grey;  position: relative;min-height: 50px;margin-bottom: 20px;">
+    <tr><th style="padding-top:1em;padding-bottom:1em;border:1px solid grey;background-color:#bdbdbd;">Menu:</th></tr>
+    <tr><td style="padding-top:1em;padding-bottom:1em;border:1px solid grey;">@Html.ActionLink("My Cases", "MyCases", "Cases", new { id = intEmpDB_ID }, null)</td></tr>
+    <tr><td style="padding-top:1em;padding-bottom:1em;border:1px solid grey;">@Html.ActionLink("Add New Case", "Create", "Cases", new { id = intEmpDB_ID }, null)</td></tr>
+    <tr><td style="padding-top:1em;padding-bottom:1em;border:1px solid grey;">@Html.ActionLink("Student Lookup", "StudentSearch", "Students")</td></tr>
+    @*<tr><td>@Html.ActionLink("Open New Case","NewCase", "Cases", new { id = intEmpDB_ID })</td></tr>*@
+    <tr style="padding-top:1em;padding-bottom:1em;border:1px solid grey;"><td>Calender</td></tr>
+</table>
+
+
+<div style="height:300px;width:600px;position:fixed;top:50%;left:50%; margin-top:-250px; margin-left:-230px;">
+    Welcome to the Case logger! <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;This website has been created to be user friendly.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please let us know how we can improve your experience!
+</div>
+<br /><br />
+            
+
+@*Caitlin Boake
+    ASP.NET
+    5/12/16
+    Razor*@

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CaseLogger3.Models.Student>
+
+@{
+    //I have a hole in my logic that prevents the "Student not found" from being shown
+    //please see controller for more details
+    
+    ViewBag.Title = "StudentSearch";
+    bool foundit = true;
+    string Msg = "";
+    if (Session["notFound"] != null)
+    {
+        foundit = false;
+        Msg = (string)Session["notFound"];
+    }
+}
+
+<h2>StudentSearch</h2>
+
+<br /><br /><br /><br />
+@using (Html.BeginForm()){
+    <table>
+        <tr>
+            <th>
+                @Html.Label("Search by Last Name: ")
+            </th>
+            <td style="padding-left:15em;">
+                @Html.Label("Search by StudentID Name: ")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.TextBox("txtLname") 
+            </td>
+            <td style="padding-left:15em;">
+                @Html.TextBox("txtSdtID")
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-left:1em; padding-top:1em;">
+                <input id="btnLname" type="submit" value="Search by Last Name" />
+            </td>
+            <td style="padding-left:16em; padding-top:1em;">
+                <input id="btnSdtID" type="submit" value="Search by ID" />
+            </td>
+        </tr>
+
+    </table>
+    <br /><br /><br /><br /><br />
+
+
+    if (IsPost && foundit){
+        <table class="searchTable">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.StudentNum)</th>
+
+                <th style="padding-left:5em;">@Html.DisplayNameFor(model => model.Lname)</th>
+
+                <th style="padding-left:5em;">@Html.DisplayNameFor(model => model.Fname)</th>
+            </tr>
+
+            @foreach (var item in Model){
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.StudentNum)</td>
+                    <td style ="padding-left:5em;">@Html.DisplayFor(modelItem => item.Lname)</td>
+                    <td style="padding-left:5em;">@Html.DisplayFor(modelItem => item.Fname)</td>
+                    <td style="padding-left:5em;">
+                        @Html.ActionLink("Add Case", "NewCase", new { id = item.StudentNum }) |
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else if (IsPost && !foundit){
+        if (@ViewBag.NotFound != null){
+            <div style="border:1px solid red">
+                @Html.Raw(Msg);
+            </div>
+        }
+    }
+}

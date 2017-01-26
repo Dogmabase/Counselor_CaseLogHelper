@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CaseLogger3.Models.Case>
+
+    @{
+        ViewBag.Title = "MyCases";
+        //displays the cases sharing the user's ID
+    }
+
+    <h2>MyCases</h2>
+
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.EmpID)</th>
+        
+        
+            <th>@Html.DisplayNameFor(model => model.StudID)</th>
+        
+        
+            <th>@Html.DisplayNameFor(model => model.Date)</th>
+        
+        
+            <th>@Html.DisplayNameFor(model => model.CaseType)</th>
+      
+        
+            <th>@Html.DisplayNameFor(model => model.Outcome)</th>
+        
+        
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CaseType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Outcome)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CaseID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CaseID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CaseID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+@*Caitlin Boake
+    ASP.NET
+    5/12/16
+    Razor*@

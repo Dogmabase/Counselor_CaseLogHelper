@@ -1,0 +1,47 @@
+﻿@model CaseLogger3.Models.Employee
+
+<body>
+    @{
+        ViewBag.Title = "Login";
+        string Msg = "";
+        if (HttpContext.Current.Application["MsgError"] != "")
+        {
+            Msg = (string)HttpContext.Current.Application["MsgError"];
+        }
+    }
+
+    <h2>Login</h2>
+    <br /><br />
+
+    @using (Html.BeginForm("Login", "Employees", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        if (Msg != "")
+        {
+            <div style="border:1px solid red;width:20em;color:red;font-size:15px;">
+                @Html.Raw(Msg)
+            </div>
+        <br /><br /><br />
+        }
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.EmployeeNum)</td>
+                <td>@Html.EditorFor(model => model.EmployeeNum)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Password)</td>
+                <td>@Html.EditorFor(model => model.Password)</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
+        </table>
+
+    }
+</body>
+
+@*Caitlin Boake 
+    ASP.NET 
+    5/12/16 
+    Razor*@
